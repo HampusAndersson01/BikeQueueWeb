@@ -23,9 +23,17 @@ const BikeQueue: React.FC<BikeQueueProps> = ({ bikeName }) => {
     removeFromQueue(bikeName);
   };
 
-  const handleRemovePupil = (index: number) => {
-    if (window.confirm('Är du säker på att du vill ta bort denna elev från kön?')) {
+  const handleRemovePupil = (index: number, name: string) => {
+    if (window.confirm(`Är du säker på att du vill ta bort ${name} från kön?`)) {
       removePupilFromQueue(bikeName, index);
+    }
+  };
+
+  // Function to handle the Enter key press
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Prevent default form submission if inside a form
+      handleAddToQueue();
     }
   };
 
@@ -45,6 +53,7 @@ const BikeQueue: React.FC<BikeQueueProps> = ({ bikeName }) => {
           type="text"
           value={newPupilName}
           onChange={(e) => setNewPupilName(e.target.value)}
+          onKeyDown={handleKeyDown} // Attach the keyDown event handler
           placeholder="Ange namn"
         />
         <button style={{ width: "100%", marginBottom: "0.5em", backgroundColor: "#28a745"}} onClick={handleAddToQueue}>Lägg till</button>
@@ -63,7 +72,7 @@ const BikeQueue: React.FC<BikeQueueProps> = ({ bikeName }) => {
                   cursor: 'pointer',
                   padding: '0',
                 }}
-                onClick={() => handleRemovePupil(index)}
+                onClick={() => handleRemovePupil(index, pupil)}
               >
                 <FontAwesomeIcon icon={faTrash} style={{ color: 'red' }} />
               </button>
