@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BikeQueueProvider, useBikeQueue } from "./components/BikeQueueContext";
 import BikeQueue from "./components/BikeQueue";
 import "./App.css"; // Ensure the CSS file is imported
+import MinutesInput from "./components/MinutesInput";
 
 const ResetButton: React.FC = () => {
   const { resetAll } = useBikeQueue();
@@ -28,11 +29,7 @@ const App: React.FC = () => {
           <div className="time-settings">
             <label>
               Bytestid:
-              <input
-                type="number"
-                value={minutes}
-                onChange={(e) => setMinutes(parseInt(e.target.value, 10))}
-              />
+                <MinutesInput value={minutes} onChange={setMinutes} />
             </label>
           </div>
           <div className="reset-button-container">
