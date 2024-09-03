@@ -1,0 +1,149 @@
+/* App.css */
+
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  /* Container */
+  .app-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+  }
+  
+  /* Header: Time Settings and Reset Button */
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .time-settings {
+    display: flex;
+    align-items: center;
+  }
+  
+  .time-settings label {
+    font-weight: bold;
+  }
+  
+  .time-settings input[type="number"] {
+    padding: 8px;
+    font-size: 16px;
+    width: 80px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .reset-button-container {
+    margin-left: auto;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Bike Queue Container */
+  .bike-queue-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .bike-queue {
+    flex: 1;
+    min-width: 200px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Bike Queue Header */
+  .bike-queue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .bike-queue h2 {
+    font-size: 20px;
+  }
+  
+  .bike-queue button {
+    cursor: pointer;
+  }
+  
+  .bike-queue button .fa-trash {
+    font-size: 16px; /* Adjust size as needed */
+  }
+  
+
+  .timer {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  /* Current User Display */
+  .bike-queue .current-user {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  /* Form and Queue List */
+  .bike-queue input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .bike-queue ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .bike-queue li {
+    padding: 8px 0;
+    font-size: 16px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .bike-queue-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .bike-queue {
+      max-width: 100%;
+    }
+  }
+  
