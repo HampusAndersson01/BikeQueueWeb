@@ -71,12 +71,11 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
   
   .bike-queue {
     flex: 1;
-    min-width: 200px;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
