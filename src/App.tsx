@@ -40,6 +40,7 @@ const App: React.FC = () => {
           <BikeQueue bikeName="1" />
           <BikeQueue bikeName="2" />
           <BikeQueue bikeName="3" />
+          <BikeQueue bikeName="B" />
           <BikeQueue bikeName="Spark" />
         </div>
       </div>
