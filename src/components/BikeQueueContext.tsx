@@ -22,8 +22,6 @@ const BikeQueueProvider: React.FC<BikeQueueProviderProps> = ({ children, initial
   const [timers, setTimers] = useState<Record<string, number>>({});
   const [currentUser, setCurrentUser] = useState<Record<string, string | null>>({});
 
-  const notificationSound = new Audio('/notification.mp3'); // Load the sound file
-
   const resetAll = () => {
     setQueues({});
     setTimers({});
@@ -95,7 +93,6 @@ const BikeQueueProvider: React.FC<BikeQueueProviderProps> = ({ children, initial
 
         Object.keys(updatedTimers).forEach((bikeName) => {
           if (updatedTimers[bikeName] > 0) {
-            notificationSound.play().catch((err) => console.error('Failed to play sound:', err));
             updatedTimers[bikeName] -= 1;
           }
         });

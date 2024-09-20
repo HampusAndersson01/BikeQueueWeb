@@ -37,11 +37,11 @@ const App: React.FC = () => {
           </div>
         </div>
         <div className="bike-queue-container">
-          <BikeQueue bikeName="1" />
-          <BikeQueue bikeName="2" />
-          <BikeQueue bikeName="3" />
-          <BikeQueue bikeName="B" />
-          <BikeQueue bikeName="Spark" />
+          <BikeQueue bikeName="1" initialDuration={initialTimerDuration}/>
+          <BikeQueue bikeName="2" initialDuration={initialTimerDuration}/>
+          <BikeQueue bikeName="3" initialDuration={initialTimerDuration}/>
+          <BikeQueue bikeName="B" initialDuration={initialTimerDuration}/>
+          {/* <BikeQueue bikeName="Spark" initialDuration={initialTimerDuration}/> */}
         </div>
       </div>
     </BikeQueueProvider>
