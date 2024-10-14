@@ -32,6 +32,8 @@ const App: React.FC = () => {
                 <MinutesInput value={minutes} onChange={setMinutes} />
             </label>
           </div>
+          <p>Skapad av <a href="https://github.com/HampusAndersson01" target="_blank" rel="noopener noreferrer">Hampus Andersson</a></p>
+        
           <div className="reset-button-container">
             <ResetButton />
           </div>
@@ -44,6 +46,8 @@ const App: React.FC = () => {
           {/* <BikeQueue bikeName="Spark" initialDuration={initialTimerDuration}/> */}
         </div>
       </div>
+      <footer>
+        </footer>
     </BikeQueueProvider>
   );
 };

@@ -47,9 +47,7 @@
     border-radius: 5px;
   }
   
-  .reset-button-container {
-    margin-left: auto;
-  }
+  
   
   button {
     background-color: #007bff;
@@ -142,6 +140,15 @@
   .timer.green {
     color: green;
   }
+
+  .header-container {
+    text-align: center;
+  }
+  .header-container a {
+    color: #666666;
+    text-decoration: none;
+  }
+  
   
   
   /* Responsive Design */
