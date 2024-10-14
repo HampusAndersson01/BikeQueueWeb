@@ -22,6 +22,20 @@ const App: React.FC = () => {
 
   const initialTimerDuration = minutes * 60; // Convert to seconds (minutes only)
 
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const isTablet = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      return /ipad|android(?!.*mobile)|tablet/.test(userAgent);
+    };
+    
+    if (isTablet()) {
+      const confirmOpen = window.confirm("Är du säker på att du vill öppna en ny flik?");
+      if (!confirmOpen) {
+        event.preventDefault();
+      }
+    }
+  };
+
   return (
     <BikeQueueProvider initialDuration={initialTimerDuration}>
       <div className="app-container">
