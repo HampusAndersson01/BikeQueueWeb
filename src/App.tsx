@@ -25,6 +25,7 @@ const App: React.FC = () => {
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     const isTablet = () => {
       const userAgent = navigator.userAgent.toLowerCase();
+      console.log(userAgent);
       return /ipad|android(?!.*mobile)|tablet/.test(userAgent);
     };
     
@@ -46,7 +47,7 @@ const App: React.FC = () => {
                 <MinutesInput value={minutes} onChange={setMinutes} />
             </label>
           </div>
-          <p>Skapad av <a href="https://github.com/HampusAndersson01" target="_blank" rel="noopener noreferrer">Hampus Andersson</a></p>
+          <p>Skapad av <a href="https://github.com/HampusAndersson01" target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>Hampus Andersson</a></p>
         
           <div className="reset-button-container">
             <ResetButton />
