@@ -53,27 +53,34 @@ const BikeQueueProvider: React.FC<BikeQueueProviderProps> = ({ children, initial
   const removeFromQueue = (bikeName: string) => {
     setQueues((prevQueues) => {
       const updatedQueue = [...(prevQueues[bikeName] || [])];
-      const removedUser = updatedQueue.shift(); // Remove the first user from the queue and save it as a variable
-
+      const removedUser = updatedQueue.shift(); // Remove the first user from the queue
+  
       setCurrentUser((prevCurrentUser) => {
-        const newCurrentUser = { ...prevCurrentUser, [bikeName]: null };
-
-        if (prevQueues[bikeName].length > 0) {
-          // Set the next user in the queue as the current user
-          newCurrentUser[bikeName] = removedUser || null;
+        const newCurrentUser = { ...prevCurrentUser };
+  
+        if (removedUser) {
+          // Set the next user in the queue as the current user if one was removed
+          newCurrentUser[bikeName] = removedUser;
+  
           // Reset the timer for the new current user
           setTimers((prevTimers) => ({
             ...prevTimers,
-            [bikeName]: initialDuration, // Use the passed initialDuration
+            [bikeName]: initialDuration, // Use the initialDuration
           }));
+        } else {
+          // No one left in the queue
+          newCurrentUser[bikeName] = null;
         }
-
+  
         return newCurrentUser;
       });
-
+  
+      // Update the queues with the removed user
       return { ...prevQueues, [bikeName]: updatedQueue };
     });
   };
+  
+  
 
   const removePupilFromQueue = (bikeName: string, pupilIndex: number) => {
     setQueues((prevQueues) => {
