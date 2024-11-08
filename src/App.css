@@ -2,164 +2,330 @@
 
 /* Basic Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-  }
-  
-  /* Container */
-  .app-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative;
-  }
-  
-  /* Header: Time Settings and Reset Button */
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .time-settings {
-    display: flex;
-    align-items: center;
-  }
-  
-  .time-settings label {
-    font-weight: bold;
-  }
-  
-  .time-settings input[type="number"] {
-    padding: 8px;
-    font-size: 16px;
-    width: 80px;
-    margin-left: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  
-  
-  button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Bike Queue Container */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Container */
+.app-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px;
+  position: relative;
+}
+
+/* Header: Time Settings and Reset Button */
+.header-container {
+  display: flex;
+  justify-content: space-between; /* Spread items to the sides */
+  align-items: center;
+  margin-bottom: 10px;
+  text-align: center;
+  position: relative; /* Allows positioning of other elements */
+  height: 50px;
+}
+
+.header-container p {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center; /* Ensure text is centered */
+}
+
+.header-container .reset-button-container {
+  position: absolute;
+  right: 0; /* Align to the far right */
+}
+
+.header-container .settings-icon {
+  cursor: pointer;
+  font-size: 24px; /* Keep the cog size */
+  padding: 10px; /* Increase the clickable area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-settings {
+  display: flex;
+  align-items: center;
+}
+
+.time-settings label {
+  font-weight: bold;
+}
+
+.time-settings input[type="number"] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Bike Queue Container */
+.bike-queue-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: nowrap;
+  overflow-x: auto; /* Make the container scrollable */
+  max-height: calc(100vh - 200px); /* Adjust height to fit within the viewport */
+}
+
+.bike-queue {
+  flex: 1;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  min-width: 250px; /* Ensure a minimum width for each bike queue */
+  max-width: 300px; /* Ensure a maximum width for each bike queue */
+  overflow-y: auto; /* Make the bike queue scrollable */
+}
+
+@media (max-width: 1024px) {
   .bike-queue-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap; /* Allow wrapping to fit 4 bike queues */
   }
-  
+
   .bike-queue {
-    flex: 1;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    flex: 1 1 calc(25% - 20px); /* Adjust width to fit 4 bike queues */
   }
-  
-  /* Bike Queue Header */
-  .bike-queue-header {
-    display: flex;
-    justify-content: space-between;
+}
+
+/* Bike Queue Header */
+.bike-queue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bike-queue h2 {
+  font-size: 20px;
+}
+
+.bike-queue button {
+  cursor: pointer;
+}
+
+.bike-queue button .fa-trash {
+  font-size: 16px;
+}
+
+.timer {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.timer.orange {
+  color: orange;
+}
+
+.timer.green {
+  color: green;
+}
+
+/* Current User Display */
+.bike-queue .current-user {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+/* Form and Queue List */
+.bike-queue input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.bike-queue ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.bike-queue li {
+  padding: 6px 0; /* Reduced padding to improve drag behavior */
+  margin-bottom: 5px; /* Added margin for spacing */
+}
+
+/* Draggable Item */
+.draggable-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  font-size: 18px;
+  transition: transform 0.15s ease, background-color 0.15s ease; /* Smooth transitions */
+  position: relative; /* Ensures z-index takes effect */
+  z-index: 10; /* Priority for draggable item layering */
+}
+
+.draggable-item.dragging {
+  background-color: #e0f7fa; /* Subtle highlight */
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Ensures it's above everything else */
+  cursor: grabbing;
+  margin-bottom: 0; /* Removes spacing when dragging */
+}
+
+.drag-icon {
+  cursor: grab;
+  margin-right: 10px;
+}
+
+.arrow-icon {
+  cursor: pointer;
+  margin: 0 5px;
+  font-size: 20px;
+  color: #007bff;
+  transition: color 0.3s;
+}
+
+.arrow-icon:hover {
+  color: #0056b3;
+}
+
+.arrow-icon.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Settings Modal */
+.settings-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it is above other elements */
+}
+
+.settings-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%; /* Adjust width for iPad */
+  max-width: 600px; /* Set a max-width for iPad */
+  position: relative;
+  z-index: 1001; /* Ensure it is above the modal background */
+}
+
+.settings-modal-content h2 {
+  margin-top: 0;
+}
+
+.settings-modal-content label {
+  display: block;
+  margin-top: 10px;
+}
+
+.settings-modal-content input[type="number"],
+.settings-modal-content input[type="text"],
+.settings-modal-content select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.settings-modal-content button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.settings-modal-content button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .bike-queue-container {
+    flex-direction: column;
     align-items: center;
   }
-  
-  .bike-queue h2 {
-    font-size: 20px;
-  }
-  
-  .bike-queue button {
-    cursor: pointer;
-  }
-  
-  .bike-queue button .fa-trash {
-    font-size: 16px; /* Adjust size as needed */
-  }
-  
-  .timer {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  /* Current User Display */
-  .bike-queue .current-user {
-    font-size: 18px;
-    margin: 10px 0;
-  }
-  
-  /* Form and Queue List */
-  .bike-queue input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .bike-queue ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  .bike-queue li {
-    padding: 8px 0;
-    font-size: 16px;
+
+  .bike-queue {
+    max-width: 100%;
   }
 
-  /* Timer */
-  
-  .timer.orange {
-    color: orange;
+  .settings-modal-content {
+    width: 90%;
+    max-width: 400px;
   }
-  
-  .timer.green {
-    color: green;
-  }
+}
 
-  .header-container {
-    text-align: center;
+@media (min-width: 768px) and (max-width: 1024px) {
+  .settings-modal-content {
+    width: 80%;
+    max-width: 600px;
   }
-  .header-container a {
-    color: #666666;
-    text-decoration: none;
-  }
-  
-  
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .bike-queue-container {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .bike-queue {
-      max-width: 100%;
-    }
-  }
-  
+}
+
+.header-container p a {
+  color: #007bff; /* Default link color */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s; /* Smooth transition for color change */
+}
+
+.header-container p a:hover {
+  color: #0056b3; /* Darker color on hover */
+}
+
+.language-selector {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.language-selector img {
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.language-selector img:hover {
+  transform: scale(1.1);
+}

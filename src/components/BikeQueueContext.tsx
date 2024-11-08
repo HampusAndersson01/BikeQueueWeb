@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { Language } from '../i18n';
 
 interface BikeQueueContextType {
   queues: Record<string, string[]>;
@@ -6,8 +7,10 @@ interface BikeQueueContextType {
   currentUser: Record<string, string | null>;
   addToQueue: (bikeName: string, pupilName: string) => void;
   removeFromQueue: (bikeName: string) => void;
-  removePupilFromQueue: (bikeName: string, pupilIndex: number) => void; // Added function
+  removePupilFromQueue: (bikeName: string, pupilIndex: number) => void;
   resetAll: () => void;
+  language: Language; // Add language state
+  setLanguage: (language: Language) => void; // Add setLanguage function
 }
 
 interface BikeQueueProviderProps {
@@ -21,6 +24,7 @@ const BikeQueueProvider: React.FC<BikeQueueProviderProps> = ({ children, initial
   const [queues, setQueues] = useState<Record<string, string[]>>({});
   const [timers, setTimers] = useState<Record<string, number>>({});
   const [currentUser, setCurrentUser] = useState<Record<string, string | null>>({});
+  const [language, setLanguage] = useState<Language>('sv'); // Default to Swedish
 
   const resetAll = () => {
     setQueues({});
@@ -79,8 +83,6 @@ const BikeQueueProvider: React.FC<BikeQueueProviderProps> = ({ children, initial
       return { ...prevQueues, [bikeName]: updatedQueue };
     });
   };
-  
-  
 
   const removePupilFromQueue = (bikeName: string, pupilIndex: number) => {
     setQueues((prevQueues) => {
@@ -97,17 +99,17 @@ const BikeQueueProvider: React.FC<BikeQueueProviderProps> = ({ children, initial
     const intervalId = setInterval(() => {
       setTimers((prevTimers) => {
         const updatedTimers = { ...prevTimers };
-
+  
         Object.keys(updatedTimers).forEach((bikeName) => {
           if (updatedTimers[bikeName] > 0) {
             updatedTimers[bikeName] -= 1;
           }
         });
-
+  
         return updatedTimers;
       });
     }, 1000);
-
+  
     return () => clearInterval(intervalId);
   }, []);
 
@@ -119,8 +121,10 @@ const BikeQueueProvider: React.FC<BikeQueueProviderProps> = ({ children, initial
         currentUser,
         addToQueue,
         removeFromQueue,
-        removePupilFromQueue, // Provide the new function
+        removePupilFromQueue,
         resetAll,
+        language, // Provide language state
+        setLanguage, // Provide setLanguage function
       }}
     >
       {children}

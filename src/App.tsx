@@ -1,33 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { BikeQueueProvider, useBikeQueue } from "./components/BikeQueueContext";
 import BikeQueue from "./components/BikeQueue";
-import "./App.css"; // Ensure the CSS file is imported
-import MinutesInput from "./components/MinutesInput";
+import "./App.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
+import SettingsModal from './components/SettingsModal';
+import translations, { Language } from './i18n';
+import { arrayMove } from "@dnd-kit/sortable";
 
 const ResetButton: React.FC = () => {
-  const { resetAll } = useBikeQueue();
+  const { resetAll, language } = useBikeQueue();
+  const t = translations[language];
 
   const handleResetClick = () => {
-    const confirmReset = window.confirm("Är du säker på att du vill återställa alla cyklar?");
+    const confirmReset = window.confirm(t.confirmReset);
     if (confirmReset) {
       resetAll();
     }
   };
 
-  return <button onClick={handleResetClick}>Återställ Alla</button>;
+  return <button onClick={handleResetClick}>{t.resetAll}</button>;
 };
 
 const App: React.FC = () => {
-  const [minutes, setMinutes] = useState<number>(5); // Default 5 minutes
+  const [minutes, setMinutes] = useState<number>(5);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [bikes, setBikes] = useState<string[]>(["1", "2", "3", "B"]);
+  const { language } = useBikeQueue();
+  const t = translations[language];
 
-  const initialTimerDuration = minutes * 60; // Convert to seconds (minutes only)
+  const initialTimerDuration = useMemo(() => minutes * 60, [minutes]);
 
-  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    const isTablet = () => {
-      const userAgent = navigator.userAgent.toLowerCase();
-      console.log(userAgent);
-      return /ipad|android(?!.*mobile)|tablet/.test(userAgent);
-    };
+  const handleLinkClick = useCallback((event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const isTablet = () => /ipad|android(?!.*mobile)|tablet/.test(navigator.userAgent.toLowerCase());
     
     if (isTablet()) {
       const confirmOpen = window.confirm("Är du säker på att du vill öppna en ny flik?");
@@ -35,35 +40,32 @@ const App: React.FC = () => {
         event.preventDefault();
       }
     }
-  };
+  }, []);
+
+  const memoizedBikes = useMemo(() => bikes.map(bike => (
+    <BikeQueue key={bike} bikeName={bike} initialDuration={initialTimerDuration} />
+  )), [bikes, initialTimerDuration]);
 
   return (
-    <BikeQueueProvider initialDuration={initialTimerDuration}>
-      <div className="app-container">
-        <div className="header-container">
-          <div className="time-settings">
-            <label>
-              Bytestid:
-                <MinutesInput value={minutes} onChange={setMinutes} />
-            </label>
-          </div>
-          <p>Skapad av <a href="https://github.com/HampusAndersson01" target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>Hampus Andersson</a></p>
-        
-          <div className="reset-button-container">
-            <ResetButton />
-          </div>
-        </div>
-        <div className="bike-queue-container">
-          <BikeQueue bikeName="1" initialDuration={initialTimerDuration}/>
-          <BikeQueue bikeName="2" initialDuration={initialTimerDuration}/>
-          <BikeQueue bikeName="3" initialDuration={initialTimerDuration}/>
-          <BikeQueue bikeName="B" initialDuration={initialTimerDuration}/>
-          {/* <BikeQueue bikeName="Spark" initialDuration={initialTimerDuration}/> */}
-        </div>
+    <div className="app-container">
+      <div className="header-container">
+        <FontAwesomeIcon icon={faCog} onClick={() => setIsSettingsOpen(true)} className="settings-icon" />
+        <p>{t.createdBy} <a href="https://github.com/HampusAndersson01" target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>Hampus Andersson</a></p>
+        <ResetButton /> {/* Move the reset button here */}
       </div>
-      <footer>
-        </footer>
-    </BikeQueueProvider>
+      <div className="bike-queue-container">
+        {memoizedBikes}
+      </div>
+      {isSettingsOpen && (
+        <SettingsModal
+          onClose={() => setIsSettingsOpen(false)}
+          bikes={bikes}
+          setBikes={setBikes}
+          minutes={minutes}
+          setMinutes={setMinutes}
+        />
+      )}
+    </div>
   );
 };
 

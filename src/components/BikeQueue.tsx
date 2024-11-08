@@ -3,6 +3,7 @@ import Timer from "./Timer";
 import { useBikeQueue } from "./BikeQueueContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import translations from '../i18n';
 
 interface BikeQueueProps {
   bikeName: string;
@@ -10,8 +11,10 @@ interface BikeQueueProps {
 }
 
 const BikeQueue: React.FC<BikeQueueProps> = ({ bikeName, initialDuration }) => {
-  const { queues, timers, currentUser, addToQueue, removeFromQueue, removePupilFromQueue } = useBikeQueue();
+  const { queues, timers, currentUser, addToQueue, removeFromQueue, removePupilFromQueue, language } = useBikeQueue();
   const [newPupilName, setNewPupilName] = useState<string>("");
+  const t = translations[language];
+  const displayName = bikeName.split('-')[0].trim();
 
   const handleAddToQueue = () => {
     if (newPupilName.trim() !== "") {
@@ -56,13 +59,13 @@ const BikeQueue: React.FC<BikeQueueProps> = ({ bikeName, initialDuration }) => {
   return (
     <div className="bike-queue">
       <div className="bike-queue-header">
-        <h2>{bikeName}</h2>
+        <h2>{displayName}</h2>
         {currentUser[bikeName] && (
           <Timer timeLeft={timers[bikeName]}/>
         )}
       </div>
       <p className="current-user">
-        {currentUser[bikeName] || "Ingen"}
+        {currentUser[bikeName] || t.noOne}
       </p>
       <div>
         <input
@@ -70,14 +73,14 @@ const BikeQueue: React.FC<BikeQueueProps> = ({ bikeName, initialDuration }) => {
           value={newPupilName}
           onChange={(e) => setNewPupilName(e.target.value)}
           onKeyDown={handleKeyDown} // Attach the keyDown event handler
-          placeholder="Ange namn"
+          placeholder={t.enterName}
           maxLength={15}
         />
-        <button style={{ width: "100%", marginBottom: "0.5em", backgroundColor: "#28a745"}} onClick={handleAddToQueue}>Lägg till</button>
+        <button style={{ width: "100%", marginBottom: "0.5em", backgroundColor: "#28a745"}} onClick={handleAddToQueue}>{t.addBike}</button>
       </div>
-      <button style={{ width: "100%", backgroundColor: "#fd7e14" }} onClick={handleRemoveFromQueue}>Byte</button>
+      <button style={{ width: "100%", backgroundColor: "#fd7e14" }} onClick={handleRemoveFromQueue}>{t.switch}</button>
       <div>
-        <h3>Kö:</h3>
+        <h3>{t.queue}</h3>
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {(queues[bikeName] || []).map((pupil, index) => (
             <li key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5em', flexWrap: 'wrap' }}>
@@ -97,8 +100,6 @@ const BikeQueue: React.FC<BikeQueueProps> = ({ bikeName, initialDuration }) => {
             </li>
           ))}
         </ul>
-
-
       </div>
     </div>
   );
