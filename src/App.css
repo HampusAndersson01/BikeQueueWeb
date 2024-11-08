@@ -304,7 +304,7 @@ button:hover {
 }
 
 .header-container p a {
-  color: #007bff; /* Default link color */
+  color: #666; /* Default link color */
   text-decoration: none; /* Remove underline */
   transition: color 0.3s; /* Smooth transition for color change */
 }
