@@ -24,7 +24,14 @@ const BikeQueueProvider: React.FC<BikeQueueProviderProps> = ({ children, initial
   const [queues, setQueues] = useState<Record<string, string[]>>({});
   const [timers, setTimers] = useState<Record<string, number>>({});
   const [currentUser, setCurrentUser] = useState<Record<string, string | null>>({});
-  const [language, setLanguage] = useState<Language>('sv'); // Default to Swedish
+  const [language, setLanguage] = useState<Language>(() => {
+    const savedLanguage = localStorage.getItem('language');
+    return savedLanguage ? (savedLanguage as Language) : 'sv';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
 
   const resetAll = () => {
     setQueues({});

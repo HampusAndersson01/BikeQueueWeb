@@ -24,17 +24,22 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes,
 
   const handleAddBike = () => {
     if (newBike.trim()) {
-      setBikes([...bikes, `${newBike}-${Date.now()}`]);
+      const updatedBikes = [...bikes, `${newBike}-${Date.now()}`];
+      setBikes(updatedBikes);
+      localStorage.setItem('bikes', JSON.stringify(updatedBikes));
       setNewBike('');
     }
   };
 
   const handleRemoveBike = (bike: string) => {
-    setBikes(bikes.filter(b => b !== bike));
+    const updatedBikes = bikes.filter(b => b !== bike);
+    setBikes(updatedBikes);
+    localStorage.setItem('bikes', JSON.stringify(updatedBikes));
   };
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
+    localStorage.setItem('language', lang);
   };
 
   const moveBike = (index: number, direction: 'up' | 'down') => {
@@ -42,6 +47,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes,
     const swapIndex = direction === 'up' ? index - 1 : index + 1;
     [newBikes[index], newBikes[swapIndex]] = [newBikes[swapIndex], newBikes[index]];
     setBikes(newBikes);
+    localStorage.setItem('bikes', JSON.stringify(newBikes));
   };
 
   const handleClickOutside = (event: MouseEvent) => {

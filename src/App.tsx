@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { BikeQueueProvider, useBikeQueue } from "./components/BikeQueueContext";
 import BikeQueue from "./components/BikeQueue";
 import "./App.css";
@@ -23,9 +23,15 @@ const ResetButton: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [minutes, setMinutes] = useState<number>(5);
+  const [minutes, setMinutes] = useState<number>(() => {
+    const savedMinutes = localStorage.getItem('minutes');
+    return savedMinutes ? parseInt(savedMinutes, 10) : 5;
+  });
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [bikes, setBikes] = useState<string[]>(["1", "2", "3", "B"]);
+  const [bikes, setBikes] = useState<string[]>(() => {
+    const savedBikes = localStorage.getItem('bikes');
+    return savedBikes ? JSON.parse(savedBikes) : ["1", "2", "3", "B"];
+  });
   const { language } = useBikeQueue();
   const t = translations[language];
 
@@ -45,6 +51,14 @@ const App: React.FC = () => {
   const memoizedBikes = useMemo(() => bikes.map(bike => (
     <BikeQueue key={bike} bikeName={bike} initialDuration={initialTimerDuration} />
   )), [bikes, initialTimerDuration]);
+
+  useEffect(() => {
+    localStorage.setItem('minutes', minutes.toString());
+  }, [minutes]);
+
+  useEffect(() => {
+    localStorage.setItem('bikes', JSON.stringify(bikes));
+  }, [bikes]);
 
   return (
     <div className="app-container">
