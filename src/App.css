@@ -350,8 +350,6 @@ select {
 .settings-modal-content select {
   width: 100%;
   padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 18px;
@@ -368,7 +366,6 @@ select {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
   font-size: 18px;
 }
 
@@ -384,6 +381,18 @@ select {
   font-size: 24px; /* Match the font size of h2 */
   cursor: pointer;
   float: right;
+}
+
+.settings-modal-content input[type="text"] {
+  width: auto; /* Allow the input to shrink */
+  flex: 1; /* Allow the input to take available space */
+  margin-right: 0; /* Remove right margin */
+  border-radius: 5px 0 0 5px; /* Round only the left corners */
+}
+
+.settings-modal-content button {
+  margin-left: 0; /* Remove left margin */
+  border-radius: 0 5px 5px 0; /* Round only the right corners */
 }
 
 /* Responsive Design */
@@ -556,3 +565,60 @@ select {
   align-items: center;
   justify-content: center;
 }
+
+/* ...existing code... */
+
+.add-bike-container {
+  display: flex;
+  align-items: center;
+}
+
+.add-bike-container input[type="text"] {
+  width: 60%; /* Set input width to 60% */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-right: none; /* Remove right border to merge with button */
+  border-radius: 5px 0 0 5px; /* Round only the left corners */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+.add-bike-container button {
+  width: 40%; /* Set button width to 40% */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-left: none; /* Remove left border to merge with input */
+  border-radius: 0 5px 5px 0; /* Round only the right corners */
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s;
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+.add-bike-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .add-bike-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-bike-container input[type="text"],
+  .add-bike-container button {
+    width: 100%; /* Set width to 100% for both input and button */
+    border-radius: 5px; /* Round all corners */
+    margin-bottom: 10px; /* Add space between elements */
+    border: 1px solid #ccc; /* Add border for individual elements */
+  }
+
+  .add-bike-container button {
+    margin-bottom: 0; /* Remove bottom margin for the last element */
+  }
+}
+
+/* ...existing code... */

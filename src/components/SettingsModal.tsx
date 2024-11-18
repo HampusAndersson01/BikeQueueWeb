@@ -16,7 +16,7 @@ interface SettingsModalProps {
   isDarkMode: boolean;
 }
 
-const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes, minutes, setMinutes, toggleDarkMode, isDarkMode }) => {
+const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes, minutes, setMinutes }) => {
   const [newBike, setNewBike] = useState<string>('');
   const { language, setLanguage } = useBikeQueue();
   const t = translations[language];
@@ -58,13 +58,18 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes,
     }
   };
 
-
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleAddBike();
+    }
+  };
 
   return (
     <div className="settings-modal">
@@ -96,10 +101,11 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes,
               </li>
             ))}
           </ul>
-          <input type="text" value={newBike} onChange={(e) => setNewBike(e.target.value)} placeholder={t.addBike} />
-          <button onClick={handleAddBike}>{t.addBike}</button>
+          <div className="add-bike-container" style={{ display: 'flex', alignItems: 'center' }}>
+            <input type="text" value={newBike} onChange={(e) => setNewBike(e.target.value)} onKeyDown={handleKeyDown} placeholder={t.addBike} style={{ width: '60%' }} />
+            <button onClick={handleAddBike} style={{ width: '40%' }}>{t.addBike}</button>
+          </div>
         </div>
-        <button onClick={toggleDarkMode}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
       </div>
     </div>
   );
