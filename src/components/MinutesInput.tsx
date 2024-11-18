@@ -22,7 +22,7 @@ const MinutesInput: React.FC<MinutesInputProps> = ({ value, onChange }) => {
         type="text"
         value={inputValue}
         onChange={handleChange}
-        style={{ paddingRight: '35px', width: '60px', textAlign: 'right',lineHeight: "1.5",fontSize: "16px" }} // Adjust width and padding as needed
+        style={{ paddingRight: '35px', width: '60px', textAlign: 'right', lineHeight: "1.5", fontSize: "16px", backgroundColor: 'var(--input-bg)', color: 'var(--input-color)' }} // Adjust width and padding as needed
       />
       <span style={{
         position: 'absolute',
@@ -32,7 +32,8 @@ const MinutesInput: React.FC<MinutesInputProps> = ({ value, onChange }) => {
         pointerEvents: 'none',
         fontSize: '16px', // Adjust font size as needed
         fontWeight: "100",
-        lineHeight: "1.5"
+        lineHeight: "1.5",
+        color: 'var(--input-color)'
       }}>
         min
       </span>

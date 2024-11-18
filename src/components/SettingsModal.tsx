@@ -12,9 +12,11 @@ interface SettingsModalProps {
   setBikes: (bikes: string[]) => void;
   minutes: number;
   setMinutes: (minutes: number) => void;
+  toggleDarkMode: () => void;
+  isDarkMode: boolean;
 }
 
-const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes, minutes, setMinutes }) => {
+const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes, minutes, setMinutes, toggleDarkMode, isDarkMode }) => {
   const [newBike, setNewBike] = useState<string>('');
   const { language, setLanguage } = useBikeQueue();
   const t = translations[language];
@@ -84,21 +86,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes,
           <label>{t.bikes}:</label>
           <ul className="droppable">
             {bikes.map((bike, index) => (
-              <li
-                key={bike}
-                className="draggable-item"
-              >
+              <li key={bike} className="draggable-item">
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <FontAwesomeIcon
-                    icon={faArrowUp}
-                    onClick={() => moveBike(index, 'up')}
-                    className={`arrow-icon ${index === 0 ? 'disabled' : ''}`}
-                  />
-                  <FontAwesomeIcon
-                    icon={faArrowDown}
-                    onClick={() => moveBike(index, 'down')}
-                    className={`arrow-icon ${index === bikes.length - 1 ? 'disabled' : ''}`}
-                  />
+                  <FontAwesomeIcon icon={faArrowUp} onClick={() => moveBike(index, 'up')} className={`arrow-icon ${index === 0 ? 'disabled' : ''}`} />
+                  <FontAwesomeIcon icon={faArrowDown} onClick={() => moveBike(index, 'down')} className={`arrow-icon ${index === bikes.length - 1 ? 'disabled' : ''}`} />
                   <span style={{ marginLeft: '10px' }}>{bike.split('-')[0]}</span>
                 </div>
                 <FontAwesomeIcon icon={faTrash} onClick={() => handleRemoveBike(bike)} style={{ cursor: 'pointer' }} />
@@ -108,6 +99,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes,
           <input type="text" value={newBike} onChange={(e) => setNewBike(e.target.value)} placeholder={t.addBike} />
           <button onClick={handleAddBike}>{t.addBike}</button>
         </div>
+        <button onClick={toggleDarkMode}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
       </div>
     </div>
   );

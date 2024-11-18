@@ -3,10 +3,12 @@ import { BikeQueueProvider, useBikeQueue } from "./components/BikeQueueContext";
 import BikeQueue from "./components/BikeQueue";
 import "./App.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import SettingsModal from './components/SettingsModal';
 import translations, { Language } from './i18n';
 import { arrayMove } from "@dnd-kit/sortable";
+import { useDarkMode } from './hooks/useDarkMode'; // Custom hook for dark mode
+import LoadingIndicator from './components/LoadingIndicator'; // Loading indicator component
 
 const ResetButton: React.FC = () => {
   const { resetAll, language } = useBikeQueue();
@@ -34,6 +36,8 @@ const App: React.FC = () => {
   });
   const { language } = useBikeQueue();
   const t = translations[language];
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDarkMode, toggleDarkMode] = useDarkMode();
 
   const initialTimerDuration = useMemo(() => minutes * 60, [minutes]);
 
@@ -60,16 +64,33 @@ const App: React.FC = () => {
     localStorage.setItem('bikes', JSON.stringify(bikes));
   }, [bikes]);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark-mode', isDarkMode);
+  }, [isDarkMode]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    // Simulate a fetch or some async operation
+    setTimeout(() => setIsLoading(false), 1000);
+  }, []);
+
   return (
     <div className="app-container">
       <div className="header-container">
-        <FontAwesomeIcon icon={faCog} onClick={() => setIsSettingsOpen(true)} className="settings-icon" />
+        <div className="icon-container">
+          <FontAwesomeIcon icon={faCog} onClick={() => setIsSettingsOpen(true)} className="settings-icon" />
+          <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} onClick={toggleDarkMode} className="dark-mode-icon" />
+        </div>
         <p>{t.createdBy} <a href="https://github.com/HampusAndersson01" target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>Hampus Andersson</a></p>
-        <ResetButton /> {/* Move the reset button here */}
+        <ResetButton />
       </div>
-      <div className="bike-queue-container">
-        {memoizedBikes}
-      </div>
+      {isLoading ? (
+        <LoadingIndicator />
+      ) : (
+        <div className="bike-queue-container">
+          {memoizedBikes}
+        </div>
+      )}
       {isSettingsOpen && (
         <SettingsModal
           onClose={() => setIsSettingsOpen(false)}
@@ -77,6 +98,8 @@ const App: React.FC = () => {
           setBikes={setBikes}
           minutes={minutes}
           setMinutes={setMinutes}
+          toggleDarkMode={toggleDarkMode}
+          isDarkMode={isDarkMode}
         />
       )}
     </div>

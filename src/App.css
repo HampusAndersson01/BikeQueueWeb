@@ -13,12 +13,25 @@ body {
   color: #333;
 }
 
+/* Light Mode */
+body {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
 /* Container */
 .app-container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 10px;
   position: relative;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.app-container {
+  background-color: #f4f4f4;
+  color: #333;
 }
 
 /* Header: Time Settings and Reset Button */
@@ -30,6 +43,11 @@ body {
   text-align: center;
   position: relative; /* Allows positioning of other elements */
   height: 50px;
+  background-color: #f4f4f4;
+}
+
+.header-container {
+  background-color: #f4f4f4;
 }
 
 .header-container p {
@@ -37,6 +55,16 @@ body {
   left: 50%;
   transform: translateX(-50%);
   text-align: center; /* Ensure text is centered */
+}
+
+.header-container p a {
+  color: #666; /* Default link color */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s; /* Smooth transition for color change */
+}
+
+.header-container p a:hover {
+  color: #0056b3; /* Darker color on hover */
 }
 
 .header-container .reset-button-container {
@@ -78,6 +106,15 @@ button {
   transition: background-color 0.3s;
 }
 
+button {
+  background-color: #007bff;
+  color: white;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
 button:hover {
   background-color: #0056b3;
 }
@@ -101,6 +138,12 @@ button:hover {
   min-width: 250px; /* Ensure a minimum width for each bike queue */
   max-width: 300px; /* Ensure a maximum width for each bike queue */
   overflow-y: auto; /* Make the bike queue scrollable */
+  color: #333;
+}
+
+.bike-queue {
+  background-color: white;
+  color: #333;
 }
 
 @media (max-width: 1024px) {
@@ -159,6 +202,16 @@ button:hover {
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: white;
+  color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  background-color: white;
+  color: #333;
+  border: 1px solid #ccc;
 }
 
 .bike-queue ul {
@@ -182,9 +235,14 @@ button:hover {
   margin-bottom: 10px;
   background-color: #f9f9f9;
   font-size: 18px;
-  transition: transform 0.15s ease, background-color 0.15s ease; /* Smooth transitions */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Add transition for smooth animation */
   position: relative; /* Ensures z-index takes effect */
   z-index: 10; /* Priority for draggable item layering */
+}
+
+.draggable-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
 }
 
 .draggable-item.dragging {
@@ -193,6 +251,18 @@ button:hover {
   z-index: 1000; /* Ensures it's above everything else */
   cursor: grabbing;
   margin-bottom: 0; /* Removes spacing when dragging */
+  transform: scale(1.05); /* Slightly enlarge the item when dragging */
+}
+
+.draggable-item.dragging {
+  background-color: #e0f7fa;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.draggable-item .arrow-icon,
+.draggable-item .fa-trash {
+  padding: 10px; /* Increase padding to make it easier to click */
+  font-size: 24px; /* Increase font size for better visibility */
 }
 
 .drag-icon {
@@ -208,6 +278,14 @@ button:hover {
   transition: color 0.3s;
 }
 
+.arrow-icon {
+  color: #007bff;
+}
+
+.arrow-icon:hover {
+  color: #0056b3;
+}
+
 .arrow-icon:hover {
   color: #0056b3;
 }
@@ -215,6 +293,10 @@ button:hover {
 .arrow-icon.disabled {
   color: #ccc;
   cursor: not-allowed;
+}
+
+.arrow-icon.disabled {
+  color: #ccc;
 }
 
 /* Settings Modal */
@@ -239,10 +321,23 @@ button:hover {
   max-width: 600px; /* Set a max-width for iPad */
   position: relative;
   z-index: 1001; /* Ensure it is above the modal background */
+  color: #333;
+}
+
+.settings-modal-content {
+  background-color: white;
+  color: #333;
 }
 
 .settings-modal-content h2 {
   margin-top: 0;
+  font-size: 24px; /* Ensure h2 font size is defined */
+}
+
+.settings-modal-content .fa-xmark {
+  font-size: 24px; /* Match the font size of h2 */
+  cursor: pointer;
+  float: right;
 }
 
 .settings-modal-content label {
@@ -260,6 +355,8 @@ button:hover {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 18px;
+  background-color: white;
+  color: #333;
 }
 
 .settings-modal-content button {
@@ -277,6 +374,16 @@ button:hover {
 
 .settings-modal-content button:hover {
   background-color: #0056b3;
+}
+
+.settings-modal-content button:hover {
+  background-color: #0056b3;
+}
+
+.settings-modal-content .fa-xmark {
+  font-size: 24px; /* Match the font size of h2 */
+  cursor: pointer;
+  float: right;
 }
 
 /* Responsive Design */
@@ -328,4 +435,124 @@ button:hover {
 
 .language-selector img:hover {
   transform: scale(1.1);
+}
+
+/* Dark Mode */
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode .app-container {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.dark-mode .bike-queue {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.dark-mode .settings-modal-content {
+  background-color: #2c2c2c;
+  color: #ffffff;
+}
+
+.dark-mode button {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.dark-mode button:hover {
+  background-color: #555555;
+}
+
+.dark-mode input[type="text"],
+.dark-mode input[type="number"],
+.dark-mode select {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #555555;
+}
+
+.dark-mode .header-container {
+  background-color: #1e1e1e;
+}
+
+.dark-mode .header-container p a {
+  color: #bbbbbb;
+}
+
+.dark-mode .header-container p a:hover {
+  color: #ffffff;
+}
+
+.dark-mode .draggable-item {
+  background-color: #2c2c2c;
+  border: 1px solid #444444;
+}
+
+.dark-mode .draggable-item.dragging {
+  background-color: #3c3c3c;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .arrow-icon {
+  color: #bbbbbb;
+}
+
+.dark-mode .arrow-icon:hover {
+  color: #ffffff;
+}
+
+.dark-mode .arrow-icon.disabled {
+  color: #555555;
+}
+
+.dark-mode .loading-indicator .spinner {
+  border-top: 16px solid #ffffff;
+}
+
+/* Ensure the root element is styled correctly */
+#root {
+  background-color: inherit;
+  color: inherit;
+}
+
+.light-mode #root {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.dark-mode #root {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loading-indicator .spinner {
+  border-top: 16px solid #3498db;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.dark-mode-icon {
+  cursor: pointer;
+  font-size: 24px;
+  padding: 10px;
+  width: 24px; /* Ensure consistent width */
+  height: 24px; /* Ensure consistent height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
