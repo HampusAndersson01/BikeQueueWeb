@@ -21,15 +21,9 @@ body {
 
 /* Container */
 .app-container {
-  max-width: 1100px;
   margin: 0 auto;
   padding: 10px;
   position: relative;
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-.app-container {
   background-color: #f4f4f4;
   color: #333;
 }
@@ -43,10 +37,6 @@ body {
   text-align: center;
   position: relative; /* Allows positioning of other elements */
   height: 50px;
-  background-color: #f4f4f4;
-}
-
-.header-container {
   background-color: #f4f4f4;
 }
 
@@ -106,15 +96,6 @@ button {
   transition: background-color 0.3s;
 }
 
-button {
-  background-color: #007bff;
-  color: white;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
 button:hover {
   background-color: #0056b3;
 }
@@ -122,7 +103,7 @@ button:hover {
 /* Bike Queue Container */
 .bike-queue-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Center the bike queue items */
   gap: 20px;
   flex-wrap: nowrap;
   overflow-x: auto; /* Make the container scrollable */
@@ -141,20 +122,6 @@ button:hover {
   color: #333;
 }
 
-.bike-queue {
-  background-color: white;
-  color: #333;
-}
-
-@media (max-width: 1024px) {
-  .bike-queue-container {
-    flex-wrap: wrap; /* Allow wrapping to fit 4 bike queues */
-  }
-
-  .bike-queue {
-    flex: 1 1 calc(25% - 20px); /* Adjust width to fit 4 bike queues */
-  }
-}
 
 /* Bike Queue Header */
 .bike-queue-header {
@@ -240,11 +207,6 @@ select {
   z-index: 10; /* Priority for draggable item layering */
 }
 
-.draggable-item {
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-}
-
 .draggable-item.dragging {
   background-color: #e0f7fa; /* Subtle highlight */
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
@@ -252,11 +214,6 @@ select {
   cursor: grabbing;
   margin-bottom: 0; /* Removes spacing when dragging */
   transform: scale(1.05); /* Slightly enlarge the item when dragging */
-}
-
-.draggable-item.dragging {
-  background-color: #e0f7fa;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .draggable-item .arrow-icon,
@@ -278,14 +235,6 @@ select {
   transition: color 0.3s;
 }
 
-.arrow-icon {
-  color: #007bff;
-}
-
-.arrow-icon:hover {
-  color: #0056b3;
-}
-
 .arrow-icon:hover {
   color: #0056b3;
 }
@@ -293,10 +242,6 @@ select {
 .arrow-icon.disabled {
   color: #ccc;
   cursor: not-allowed;
-}
-
-.arrow-icon.disabled {
-  color: #ccc;
 }
 
 /* Settings Modal */
@@ -321,11 +266,6 @@ select {
   max-width: 600px; /* Set a max-width for iPad */
   position: relative;
   z-index: 1001; /* Ensure it is above the modal background */
-  color: #333;
-}
-
-.settings-modal-content {
-  background-color: white;
   color: #333;
 }
 
@@ -373,16 +313,6 @@ select {
   background-color: #0056b3;
 }
 
-.settings-modal-content button:hover {
-  background-color: #0056b3;
-}
-
-.settings-modal-content .fa-xmark {
-  font-size: 24px; /* Match the font size of h2 */
-  cursor: pointer;
-  float: right;
-}
-
 .settings-modal-content input[type="text"] {
   width: auto; /* Allow the input to shrink */
   flex: 1; /* Allow the input to take available space */
@@ -400,10 +330,31 @@ select {
   .bike-queue-container {
     flex-direction: column;
     align-items: center;
+    overflow-y: auto; /* Allow vertical scrolling for the container */
+    max-height: none; /* Remove max-height restriction */
   }
 
   .bike-queue {
     max-width: 100%;
+    min-width: 100%; /* Ensure the bike queue takes full width */
+    margin-bottom: 20px; /* Add margin between bike queues */
+  }
+
+  .add-bike-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-bike-container input[type="text"],
+  .add-bike-container button {
+    width: 100%; /* Set width to 100% for both input and button */
+    border-radius: 5px; /* Round all corners */
+    margin-bottom: 10px; /* Add space between elements */
+    border: 1px solid #ccc; /* Add border for individual elements */
+  }
+
+  .add-bike-container button {
+    margin-bottom: 0; /* Remove bottom margin for the last element */
   }
 
   .settings-modal-content {
@@ -417,16 +368,6 @@ select {
     width: 80%;
     max-width: 600px;
   }
-}
-
-.header-container p a {
-  color: #666; /* Default link color */
-  text-decoration: none; /* Remove underline */
-  transition: color 0.3s; /* Smooth transition for color change */
-}
-
-.header-container p a:hover {
-  color: #0056b3; /* Darker color on hover */
 }
 
 .language-selector {
@@ -566,8 +507,6 @@ select {
   justify-content: center;
 }
 
-/* ...existing code... */
-
 .add-bike-container {
   display: flex;
   align-items: center;
@@ -620,5 +559,3 @@ select {
     margin-bottom: 0; /* Remove bottom margin for the last element */
   }
 }
-
-/* ...existing code... */
