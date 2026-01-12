@@ -6,6 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "8201:80"
     restart: unless-stopped
     container_name: bike-queue-web
