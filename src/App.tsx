@@ -1,12 +1,11 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
-import { BikeQueueProvider, useBikeQueue } from "./components/BikeQueueContext";
+import { useBikeQueue } from "./components/BikeQueueContext";
 import BikeQueue from "./components/BikeQueue";
 import "./App.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import SettingsModal from './components/SettingsModal';
-import translations, { Language } from './i18n';
-import { arrayMove } from "@dnd-kit/sortable";
+import translations from './i18n';
 import { useDarkMode } from './hooks/useDarkMode'; // Custom hook for dark mode
 import LoadingIndicator from './components/LoadingIndicator'; // Loading indicator component
 

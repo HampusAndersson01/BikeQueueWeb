@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faTrash, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { useBikeQueue } from './BikeQueueContext';
@@ -21,8 +21,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes,
   const { language, setLanguage } = useBikeQueue();
   const t = translations[language];
   const modalRef = useRef<HTMLDivElement>(null);
-  const dragItem = useRef<number | null>(null);
-  const dragOverItem = useRef<number | null>(null);
+  const _dragItem = useRef<number | null>(null);
+  const _dragOverItem = useRef<number | null>(null);
 
   const handleAddBike = () => {
     if (newBike.trim()) {
@@ -52,18 +52,18 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ onClose, bikes, setBikes,
     localStorage.setItem('bikes', JSON.stringify(newBikes));
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
+  const handleClickOutside = useCallback((event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       onClose();
     }
-  };
+  }, [onClose]);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
